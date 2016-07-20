@@ -1,5 +1,5 @@
 {
-  "name": "@kevinokerlund/query-by-regex",
+  "name": "query-by-regex",
   "version": "0.0.1",
   "description": "",
   "main": "lib/query-by-regex.js",
