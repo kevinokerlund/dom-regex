@@ -1,0 +1,37 @@
+{
+  "name": "@kevinokerlund/query-by-regex",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/query-by-regex.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "QuerySelector",
+    "Regex"
+  ],
+  "author": "Kevin Okerlund",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "core-js": "^2.4.1",
+    "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "core-js": "^2.4.1",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "webpack": "^1.13.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinokerlund/query-by-regex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kevinokerlund/query-by-regex/issues"
+  },
+  "homepage": "https://github.com/kevinokerlund/query-by-regex#readme"
+}
