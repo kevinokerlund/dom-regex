@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+
+<div data-id="12345>"><p data-tagname="p">Testing</p></div>
+<div data-id="54321"></div>
+
+<custom-element id="pretty-special"></custom-element>
+<custom-element id="super-special"></custom-element>
+<custom-element id="not"></custom-element>
+
+<p></p>
+<h1></h1>
+
+<svg></svg>
+
+<div id="awesomeID" class="one two three four" data-text="<div>Testing</div>" data-id="3">Content</div>
+
+<div>
+	<div>
+		<select data-event="change">
+			<option></option>
+			<option></option>
+			<option></option>
+			<option></option>
+			<option></option>
+		</select>
+	</div>
+</div>
+
+<script src="../../Desktop/query-by-regex/queryRegex.js"></script>
+<script>
+
+	//  select divs that have data-test attr that starts with 5
+	var query = document.querySelectorAll('[data-text*="es"]');
+	console.log(query);
+
+	var query2 = QueryByRegex.all(/data-[a-z]+="\d/);
+	console.log(query2);
+
+</script>
+
+</body>
+</html>
