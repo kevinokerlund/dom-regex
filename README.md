@@ -1,6 +1,8 @@
 # query-by-regex
 JavaScript library for querying DOM elements with Regular Expressions
 
+This library is UMD wrapped so it can be used with or without a module loader such as requireJS.
+
 ##Installing
 ```javascript
 npm install query-by-regex
