@@ -14,21 +14,6 @@ function findInArray(array, cb) {
 	}
 }
 
-function normalizeArgs(args) {
-	let attr = null;
-	let regex = args[0];
-
-	if (args.length == 2 && args[1] instanceof RegExp) {
-		attr = args[0];
-		regex = args[1];
-	}
-
-	return {
-		attr: attr,
-		regex: regex
-	}
-}
-
 function getElements(attr) {
 	let selector = (attr) ? `[${attr}]` : '*';
 
@@ -49,19 +34,15 @@ function test(el, attr, regex) {
 }
 
 let QueryByRegex = {
-	one: (...args) => {
-		args = normalizeArgs(args);
-
-		return findInArray(getElements(args.attr), el => {
-			return test(el, args.attr, args.regex);
+	one: (regex, attr) => {
+		return findInArray(getElements(attr), el => {
+			return test(el, attr, regex);
 		});
 	},
-	all: (...args) => {
-		args = normalizeArgs(args);
-
-		return getElements(args.attr)
+	all: (regex, attr) => {
+		return getElements(attr)
 			.filter(el => {
-				return test(el, args.attr, args.regex);
+				return test(el, attr, regex);
 			})
 	}
 };
