@@ -1,6 +1,6 @@
 {
   "name": "query-by-regex",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "JavaScript library for querying DOM elements with Regular Expressions",
   "main": "lib/query-by-regex.js",
   "scripts": {
