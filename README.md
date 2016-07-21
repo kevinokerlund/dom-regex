@@ -1,4 +1,5 @@
 # query-by-regex
+JavaScript library for querying DOM elements with Regular Expressions
 
 ##Installing
 ```javascript
