@@ -48,16 +48,15 @@ function test(el, attr, regex) {
 	return regex.test(content);
 }
 
-class QueryByRegex {
-	static one(...args) {
+let QueryByRegex = {
+	one: (...args) => {
 		args = normalizeArgs(args);
 
 		return findInArray(getElements(args.attr), el => {
 			return test(el, args.attr, args.regex);
 		});
-	}
-
-	static all(...args) {
+	},
+	all: (...args) => {
 		args = normalizeArgs(args);
 
 		return getElements(args.attr)
@@ -65,8 +64,6 @@ class QueryByRegex {
 				return test(el, args.attr, args.regex);
 			})
 	}
-}
+};
 
-
-window.QueryByRegex = QueryByRegex;
-// module.exports = QueryByRegex;
+export default QueryByRegex;
