@@ -1,7 +1,7 @@
 {
   "name": "query-by-regex",
   "version": "1.0.0",
-  "description": "",
+  "description": "JavaScript library for querying DOM elements with Regular Expressions",
   "main": "lib/query-by-regex.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,11 +9,13 @@
     "dev": "webpack --progress --colors --watch --mode=dev"
   },
   "keywords": [
-    "QuerySelector",
-    "QuerySelectorAll",
-    "Regex",
+    "Query",
+    "DOM",
     "Attribute",
-    "DOM"
+    "Regex",
+    "Regular Expressions",
+    "QuerySelector",
+    "QuerySelectorAll"
   ],
   "author": "Kevin Okerlund",
   "license": "MIT",
