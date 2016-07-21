@@ -2,7 +2,12 @@
 // require('core-js/fn/array/find');
 
 function nodeListToArray(nodeList) {
-	return [].slice.call(nodeList);
+	let array = [];
+	let length = nodeList.length;
+	for (let i = 0; i < length; i++) {
+		array.push(nodeList[i]);
+	}
+	return array;
 }
 
 function findInArray(array, cb) {
