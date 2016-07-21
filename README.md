@@ -1,28 +1,28 @@
-# query-by-regex
+# reqex-query
 JavaScript library for querying DOM elements with Regular Expressions
 
 This library is UMD wrapped so it can be used with or without a module loader such as requireJS.
 
 ##Installing
 ```javascript
-npm install query-by-regex
+npm install regex-query
 ```
 
 ## Including
 
 #### Babel
 ```javascript
-import QueryByRegex from “query-by-regex”;
+import RegexQuery from “regex-query”;
 ```
 
 #### Browserify/Webpack
 ```javascript
-var QueryByRegex = require("query-by-regex");
+var RegexQuery = require("regex-query");
 ```
 
 ## Usage
 
-QueryByRegex has two different methods that are available for use, `one`, and `all`, and behave like `querySelector`, and `querySelectorAll`. `one` returns the first instance it finds, and `all` returns all instances it finds in an array.
+RegexQuery has two different methods that are available for use, `one`, and `all`, and behave like `querySelector`, and `querySelectorAll`. `one` returns the first instance it finds, and `all` returns all instances it finds in an array.
 
 ---
 
@@ -47,12 +47,12 @@ An attribute name to which the regex would be scoped.
 To get all elements with any `data-*` attribute:
 
 ```javascript
-var elements = QueryByRegex.all(/data-[a-z]/);
+var elements = RegexQuery.all(/data-[a-z]/);
 ```
 
 To get all elements that have a data-id attribute that conforms to a pattern, (for example 3 numbers followed 3 letters):
 ```javascript
-var elements = QueryByRegex.all(/^\d{3}[a-z]{3}$/i, 'data-id');
+var elements = RegexQuery.all(/^\d{3}[a-z]{3}$/i, 'data-id');
 ```
 
 ## Keep in mind:
@@ -60,10 +60,10 @@ var elements = QueryByRegex.all(/^\d{3}[a-z]{3}$/i, 'data-id');
 
 ```javascript
 // This is correct:
-var xEls = QueryByRegex.all(/^x/);
+var xEls = RegexQuery.all(/^x/);
 
 // This is incorrect:
-var xEls = QueryByRegex.all(/^<x/); // note the `<`
+var xEls = RegexQuery.all(/^<x/); // note the `<`
 ```
 
 * Performance will always be slower when there is no `attributeName` passed in. This is just from preliminary testing, but on a page with ~2000 nodes, it takes ~18ms to complete the query when using `.all()`. When using an `attributeName`, it only adds on ~.5ms to a regular `querySelectorAll` call, with a `filter` attached to it to get the same result you would from this library.

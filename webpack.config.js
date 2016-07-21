@@ -2,20 +2,20 @@ var webpack = require('webpack');
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var path = require('path');
 var env = require('yargs').argv.mode;
-var libraryName = 'QueryByRegex';
+var libraryName = 'RegexQuery';
 
 var plugins = [], outputFile;
 
 if (env === 'build') {
 	plugins.push(new UglifyJsPlugin({minimize: true}));
-	outputFile = 'query-by-regex.min.js';
+	outputFile = 'regex-query.min.js';
 } else {
-	outputFile = 'query-by-regex.js';
+	outputFile = 'regex-query.js';
 }
 
 
 module.exports = {
-	entry: __dirname + "/src/query-by-regex.js",
+	entry: __dirname + "/src/regex-query.js",
 	devtool: 'source-map',
 	output: {
 		path: __dirname + '/lib',

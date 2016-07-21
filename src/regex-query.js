@@ -1,6 +1,3 @@
-// require('core-js/fn/array/from');
-// require('core-js/fn/array/find');
-
 function nodeListToArray(nodeList) {
 	let array = [];
 	let length = nodeList.length;

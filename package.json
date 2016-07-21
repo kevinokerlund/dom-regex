@@ -1,8 +1,8 @@
 {
-  "name": "query-by-regex",
-  "version": "1.1.0",
+  "name": "regex-query",
+  "version": "1.0.0",
   "description": "JavaScript library for querying DOM elements with Regular Expressions",
-  "main": "lib/query-by-regex.js",
+  "main": "lib/regex-query.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=build",
@@ -13,7 +13,7 @@
     "DOM",
     "Attribute",
     "Regex",
-    "Regular Expressions",
+    "Regular Expression",
     "QuerySelector",
     "QuerySelectorAll"
   ],
@@ -30,10 +30,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kevinokerlund/query-by-regex.git"
+    "url": "git+https://github.com/kevinokerlund/regex-query.git"
   },
   "bugs": {
-    "url": "https://github.com/kevinokerlund/query-by-regex/issues"
+    "url": "https://github.com/kevinokerlund/regex-query/issues"
   },
-  "homepage": "https://github.com/kevinokerlund/query-by-regex#readme"
+  "homepage": "https://github.com/kevinokerlund/regex-query#readme"
 }

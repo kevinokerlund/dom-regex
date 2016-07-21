@@ -32,17 +32,17 @@
 	</div>
 </div>
 
-<script src="lib/query-by-regex.js"></script>
+<script src="lib/regex-query.js"></script>
 <script>
 
 	//  select divs that have data-test attr that starts with 5
 	var query = document.querySelectorAll('[data-text*="es"]');
 	console.log(query);
 
-	var query2 = QueryByRegex.all(/data-[a-z]+="\d/);
+	var query2 = RegexQuery.all(/data-[a-z]+="\d/);
 	console.log(query2);
 
-	var query3 = QueryByRegex.all(/n/, 'id');
+	var query3 = RegexQuery.all(/n/, 'id');
 	console.log(query3);
 
 </script>
