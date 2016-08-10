@@ -32,6 +32,11 @@ function verifyAttributeName(possibleAttribute) {
 }
 
 function normalizeSelectorOrNodeListOrArrayOrElement(arg) {
+
+	if (isDOM(arg)) {
+		return [arg];
+	}
+
 	if (arg instanceof NodeList) {
 		arg = nodeListToArray(arg);
 	}
