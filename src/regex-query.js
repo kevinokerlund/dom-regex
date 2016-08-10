@@ -97,20 +97,12 @@ function inside(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
 }
 
 const QueryByRegex = {
-	all: function (...args) {
-		return oneOrAll(true, ...args);
-	},
-	one: function (...args) {
-		return oneOrAll(false, ...args);
-	}
+	all: (...args) => oneOrAll(true, ...args),
+	one: (...args) => oneOrAll(false, ...args)
 };
 
-QueryByRegex.all.inside = function (...args) {
-	return inside(true, ...args);
-};
+QueryByRegex.all.inside = (...args) => inside(true, ...args);
 
-QueryByRegex.one.inside = function (...args) {
-	return inside(false, ...args) || null;
-};
+QueryByRegex.one.inside = (...args) => inside(false, ...args) || null;
 
 export default QueryByRegex;
