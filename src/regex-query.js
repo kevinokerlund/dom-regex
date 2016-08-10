@@ -101,13 +101,29 @@ function inside(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
 		._findOrFilter(el => test(el, regex, attrName));
 }
 
+function against(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
+	let arrayOfElements = normalizeSelectorOrNodeListOrArrayOrElement(
+		selectorOrNodeListOrArrayOrElement
+	);
+
+	verifyRegex(regex);
+	verifyAttributeName(attrName);
+
+	setFindOrFilter(findAll);
+
+	return arrayOfElements
+		._findOrFilter(el => test(el, regex, attrName));
+}
+
 const QueryByRegex = {
 	all: (...args) => oneOrAll(true, ...args),
 	one: (...args) => oneOrAll(false, ...args)
 };
 
 QueryByRegex.all.inside = (...args) => inside(true, ...args);
+QueryByRegex.all.against = (...args) => against(true, ...args);
 
 QueryByRegex.one.inside = (...args) => inside(false, ...args) || null;
+QueryByRegex.one.against = (...args) => against(false, ...args) || null;
 
 export default QueryByRegex;
