@@ -75,4 +75,4 @@ var elements = document.querySelectorAll('[data-id*="3"]');
 ```
 
 ## Contributing
-Any pull-requests/suggestions/etc., are definitelly welcome.
+Any pull-requests/suggestions/etc., are definitely welcome.
