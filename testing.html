@@ -47,46 +47,58 @@
 	//	var query = document.querySelectorAll('[data-text*="es"]');
 	//	console.log(query);
 
-		var query2 = RegexQuery.all(/data-[a-z]+="\d/);
-		console.log(query2);
+	var query2 = RegexQuery.all(/data-[a-z]+="\d/);
+	console.log(query2);
 
-		var query3 = RegexQuery.all(/nt/, 'id');
-		console.log(query3);
+	var query3 = RegexQuery.all(/nt/, 'id');
+	console.log(query3);
 
-		var query4 = RegexQuery.all(/awe/, 'id');
-		console.log(query4);
+	var query4 = RegexQuery.all(/awe/, 'id');
+	console.log(query4);
 
-		var query5 = RegexQuery.all.inside('#parent-with-children', /sele/);
-		console.log(query5);
+	var query5 = RegexQuery.all.inside('#parent-with-children', /sele/);
+	console.log(query5);
 
-		var query51 = RegexQuery.all.inside('select',
-			/optio/
-		);
-		console.log(query51);
+	var query51 = RegexQuery.all.inside('select',
+		/optio/
+	);
+	console.log(query51);
+
+	var query52 = RegexQuery.all.inside(document.querySelector('select'),
+		/optio/
+	);
+	console.log(query52);
 
 
-		console.log('\n\nNOW ONLY ONE\n\n');
+
+	console.log('\n\nNOW ONLY ONE\n\n');
 
 
-		var query2 = RegexQuery.one(/data-[a-z]+="\d/);
-		console.log(query2);
 
-		var query3 = RegexQuery.one(/nt/, 'id');
-		console.log(query3);
+	var query2 = RegexQuery.one(/data-[a-z]+="\d/);
+	console.log(query2);
 
-		var query4 = RegexQuery.one(/awe/, 'id');
-		console.log(query4);
+	var query3 = RegexQuery.one(/nt/, 'id');
+	console.log(query3);
 
-		var query5 = RegexQuery.one.inside('#parent-with-children', /sele/);
-		console.log(query5);
+	var query4 = RegexQuery.one(/awe/, 'id');
+	console.log(query4);
 
-		var query51 = RegexQuery.one.inside('select',
-			/optio/
-		);
-		console.log(query51);
+	var query5 = RegexQuery.one.inside('#parent-with-children', /sele/);
+	console.log(query5);
 
-//		var query6 = RegexQuery.all.against('select');
-//		console.log(query6);
+	var query51 = RegexQuery.one.inside('select',
+		/optio/
+	);
+	console.log(query51);
+
+	var query52 = RegexQuery.one.inside(document.querySelector('select'),
+		/optio/
+	);
+	console.log(query52);
+
+	//		var query6 = RegexQuery.all.against('select');
+	//		console.log(query6);
 
 </script>
 
