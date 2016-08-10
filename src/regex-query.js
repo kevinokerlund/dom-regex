@@ -64,25 +64,14 @@ function test(el, regex, attr) {
 	return regex.test(content);
 }
 
-function setFindOrFilter(useFilter) {
-	let oldFindOrFilter = Array.prototype._findOrFilter;
-
-	let useThis = (useFilter) ? 'filter' : 'find';
-
-	Array.prototype._findOrFilter = function (...args) {
-		Array.prototype._findOrFilter = oldFindOrFilter;
-		return this[useThis](...args);
-	};
-}
-
 function oneOrAll(findAll, regex, attrName) {
 	verifyRegex(regex);
 	verifyAttributeName(attrName);
 
-	setFindOrFilter(findAll);
+	let method = (findAll) ? 'filter' : 'find';
 
 	return nodeListToArray(document.querySelectorAll('*'))
-		._findOrFilter(el => test(el, regex, attrName));
+		[method](el => test(el, regex, attrName));
 }
 
 function inside(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
@@ -93,12 +82,12 @@ function inside(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
 	verifyRegex(regex);
 	verifyAttributeName(attrName);
 
-	setFindOrFilter(findAll);
+	let method = (findAll) ? 'filter' : 'find';
 
 	return arrayOfElements
 		.map(el => nodeListToArray(el.querySelectorAll('*')))
 		.reduce((a, b) => a.concat(b), [])
-		._findOrFilter(el => test(el, regex, attrName));
+		[method](el => test(el, regex, attrName));
 }
 
 function against(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
@@ -109,10 +98,10 @@ function against(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
 	verifyRegex(regex);
 	verifyAttributeName(attrName);
 
-	setFindOrFilter(findAll);
+	let method = (findAll) ? 'filter' : 'find';
 
 	return arrayOfElements
-		._findOrFilter(el => test(el, regex, attrName));
+		[method](el => test(el, regex, attrName));
 }
 
 const QueryByRegex = {
