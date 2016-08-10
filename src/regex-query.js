@@ -1,13 +1,5 @@
-import 'polyfill-array-find.js';
-
-function nodeListToArray(nodeList) {
-	let array = [];
-	let length = nodeList.length;
-	for (let i = 0; i < length; i++) {
-		array.push(nodeList[i]);
-	}
-	return array;
-}
+import 'polyfills/array-find.js';
+import 'polyfills/array-from.js';
 
 function isDOM(obj) {
 	if ("HTMLElement" in window) {
@@ -38,14 +30,14 @@ function normalizeSelectorOrNodeListOrArrayOrElement(arg) {
 	}
 
 	if (arg instanceof NodeList) {
-		arg = nodeListToArray(arg);
+		arg = Array.from(arg);
 	}
 
 	if (Array.isArray(arg)) {
 		return arg.filter(isDOM);
 	}
 	else if (arg !== '' && (typeof arg === 'string' || arg instanceof String)) {
-		return nodeListToArray(
+		return Array.from(
 			document.querySelectorAll(arg)
 		)
 	}
@@ -64,14 +56,18 @@ function test(el, regex, attr) {
 	return regex.test(content);
 }
 
+function useFindOrFilter(all) {
+	return all ? 'filter' : 'find';
+}
+
 function oneOrAll(findAll, regex, attrName) {
 	verifyRegex(regex);
 	verifyAttributeName(attrName);
 
-	let method = (findAll) ? 'filter' : 'find';
+	let findOrFilter = useFindOrFilter(findAll);
 
-	return nodeListToArray(document.querySelectorAll('*'))
-		[method](el => test(el, regex, attrName));
+	return Array.from(document.querySelectorAll('*'))
+		[findOrFilter](el => test(el, regex, attrName));
 }
 
 function inside(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
@@ -82,12 +78,12 @@ function inside(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
 	verifyRegex(regex);
 	verifyAttributeName(attrName);
 
-	let method = (findAll) ? 'filter' : 'find';
+	let findOrFilter = useFindOrFilter(findAll);
 
 	return arrayOfElements
-		.map(el => nodeListToArray(el.querySelectorAll('*')))
+		.map(el => Array.from(el.querySelectorAll('*')))
 		.reduce((a, b) => a.concat(b), [])
-		[method](el => test(el, regex, attrName));
+		[findOrFilter](el => test(el, regex, attrName));
 }
 
 function against(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
@@ -98,10 +94,10 @@ function against(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
 	verifyRegex(regex);
 	verifyAttributeName(attrName);
 
-	let method = (findAll) ? 'filter' : 'find';
+	let findOrFilter = useFindOrFilter(findAll);
 
 	return arrayOfElements
-		[method](el => test(el, regex, attrName));
+		[findOrFilter](el => test(el, regex, attrName));
 }
 
 const QueryByRegex = {
