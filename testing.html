@@ -20,7 +20,15 @@
 
 <div id="awesomeID" class="one two three four" data-text="<div>Testing</div>" data-id="3">Content</div>
 
-<div>
+<select id="normal-select">
+	<option></option>
+	<option></option>
+	<option></option>
+	<option></option>
+	<option></option>
+</select>
+
+<div id="parent-with-children">
 	<div>
 		<select data-event="change">
 			<option></option>
@@ -36,14 +44,49 @@
 <script>
 
 	//  select divs that have data-test attr that starts with 5
-	var query = document.querySelectorAll('[data-text*="es"]');
-	console.log(query);
+	//	var query = document.querySelectorAll('[data-text*="es"]');
+	//	console.log(query);
 
-	var query2 = RegexQuery.all(/data-[a-z]+="\d/);
-	console.log(query2);
+		var query2 = RegexQuery.all(/data-[a-z]+="\d/);
+		console.log(query2);
 
-	var query3 = RegexQuery.all(/n/, 'id');
-	console.log(query3);
+		var query3 = RegexQuery.all(/nt/, 'id');
+		console.log(query3);
+
+		var query4 = RegexQuery.all(/awe/, 'id');
+		console.log(query4);
+
+		var query5 = RegexQuery.all.inside('#parent-with-children', /sele/);
+		console.log(query5);
+
+		var query51 = RegexQuery.all.inside('select',
+			/optio/
+		);
+		console.log(query51);
+
+
+		console.log('\n\nNOW ONLY ONE\n\n');
+
+
+		var query2 = RegexQuery.one(/data-[a-z]+="\d/);
+		console.log(query2);
+
+		var query3 = RegexQuery.one(/nt/, 'id');
+		console.log(query3);
+
+		var query4 = RegexQuery.one(/awe/, 'id');
+		console.log(query4);
+
+		var query5 = RegexQuery.one.inside('#parent-with-children', /sele/);
+		console.log(query5);
+
+		var query51 = RegexQuery.one.inside('select',
+			/optio/
+		);
+		console.log(query51);
+
+//		var query6 = RegexQuery.all.against('select');
+//		console.log(query6);
 
 </script>
 
