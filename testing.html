@@ -8,6 +8,7 @@
 
 <div data-id="12345>"><p data-tagname="p">Testing</p></div>
 <div data-id="54321"></div>
+<div data-id="chars"></div>
 
 <custom-element id="pretty-special"></custom-element>
 <custom-element id="super-special"></custom-element>
@@ -30,7 +31,7 @@
 
 <div id="parent-with-children">
 	<div>
-		<select data-event="change">
+		<select data-event="change-normal">
 			<option></option>
 			<option></option>
 			<option></option>
@@ -43,62 +44,62 @@
 <script src="lib/regex-query.js"></script>
 <script>
 
-	//  select divs that have data-test attr that starts with 5
-	//	var query = document.querySelectorAll('[data-text*="es"]');
-	//	console.log(query);
+	var query1 = RegexQuery.all(/data-[a-z]+="\d/);
+	console.log(query1);
 
-	var query2 = RegexQuery.all(/data-[a-z]+="\d/);
+	var query2 = RegexQuery.all(/nt/, 'id');
 	console.log(query2);
 
-	var query3 = RegexQuery.all(/nt/, 'id');
+	var query3 = RegexQuery.all(/awe/, 'id');
 	console.log(query3);
 
-	var query4 = RegexQuery.all(/awe/, 'id');
+	var query4 = RegexQuery.all.inside('#parent-with-children', /sele/);
 	console.log(query4);
 
-	var query5 = RegexQuery.all.inside('#parent-with-children', /sele/);
+	var query5 = RegexQuery.all.inside('select',
+		/optio/
+	);
 	console.log(query5);
 
-	var query51 = RegexQuery.all.inside('select',
+	var query6 = RegexQuery.all.inside(document.querySelector('select'),
 		/optio/
 	);
-	console.log(query51);
-
-	var query52 = RegexQuery.all.inside(document.querySelector('select'),
-		/optio/
-	);
-	console.log(query52);
-
+	console.log(query6);
 
 
 	console.log('\n\nNOW ONLY ONE\n\n');
 
 
+	var query7 = RegexQuery.one(/data-[a-z]+="\d/);
+	console.log(query7);
 
-	var query2 = RegexQuery.one(/data-[a-z]+="\d/);
-	console.log(query2);
+	var query8 = RegexQuery.one(/nt/, 'id');
+	console.log(query8);
 
-	var query3 = RegexQuery.one(/nt/, 'id');
-	console.log(query3);
+	var query9 = RegexQuery.one(/awe/, 'id');
+	console.log(query9);
 
-	var query4 = RegexQuery.one(/awe/, 'id');
-	console.log(query4);
+	var query10 = RegexQuery.one.inside('#parent-with-children', /sele/);
+	console.log(query10);
 
-	var query5 = RegexQuery.one.inside('#parent-with-children', /sele/);
-	console.log(query5);
-
-	var query51 = RegexQuery.one.inside('select',
+	var query11 = RegexQuery.one.inside('select',
 		/optio/
 	);
-	console.log(query51);
+	console.log(query11);
 
-	var query52 = RegexQuery.one.inside(document.querySelector('select'),
+	var query12 = RegexQuery.one.inside(document.querySelector('select'),
 		/optio/
 	);
-	console.log(query52);
+	console.log(query12);
 
-	//		var query6 = RegexQuery.all.against('select');
-	//		console.log(query6);
+	var query20 = RegexQuery.all.against([].slice.call(document.querySelectorAll('select')), /normal/, 'id');
+	console.log(query20);
+
+	var query21 = RegexQuery.one.against([].slice.call(document.querySelectorAll('select')), /-normal/);
+	console.log(query21);
+
+	var query22 = RegexQuery.all.against(document.querySelector('#awesomeID'), /div/, 'data-text');
+	console.log(query22);
 
 </script>
 
