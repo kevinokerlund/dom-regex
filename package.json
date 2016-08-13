@@ -2,7 +2,7 @@
   "name": "regex-query",
   "version": "1.0.0",
   "description": "JavaScript library for querying DOM elements with Regular Expressions",
-  "main": "lib/regex-query.js",
+  "main": "lib/regex-query.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=build",
