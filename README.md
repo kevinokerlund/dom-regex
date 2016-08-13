@@ -3,75 +3,162 @@ JavaScript library for querying DOM elements with Regular Expressions
 
 This library is UMD wrapped so it can be used with or without a module loader such as requireJS.
 
-##Installing
+##Install
 ```javascript
-npm install regex-query
-```
-
-## Including
-
-#### Babel
-```javascript
-import RegexQuery from “regex-query”;
-```
-
-#### Browserify/Webpack
-```javascript
-var RegexQuery = require("regex-query");
+npm install --save regex-query
 ```
 
 ## Usage
+```javascript
+import RegexQuery from 'Regex-Query';
 
-RegexQuery has two different methods that are available for use, `one`, and `all`, and behave like `querySelector`, and `querySelectorAll`. `one` returns the first instance it finds, and `all` returns all instances it finds in an array.
+// Query for all custom components
+// custom components are required to have hyphen in them
+let matches = RegexQuery.all(/^[a-z]+-[a-z]+/);
+```
+
+## API
+
+#### Argument Definitions:
+
+ **`regex`**  
+ _`type`_: Regular Expression  
+ A pattern to match against. By default, the Regular Expression is applied to the entire opening tag of HTML elements.
+ If an `attributeName` is provided as an argument, the regular expression will be applied to only the value of the
+ attribute, if it exists.
+ 
+ **`attributeName`**  
+ _`type`_: String  
+ An attribute name to which the regex would be scoped instead.
+ 
+ **`query`**  
+ _`type`_: *  
+ Can be one of four things:
+ * **DOM Element**
+   - An element from the page. For example, `let domElement = document.getElementById('foo');`
+ * **Query Selector**
+   - A regular query selector that would be passed to `querySelector`. For example: `div.foo`
+ * **NodeList**
+   - An entire selection of elements. `document.querySelectorAll('option');`.
+ * **Array of DOM Elements**
+   - Many people convert NodeList's to arrays immediately after obtaining them so Array methods (`.forEach`) can be used.
+   
+### `.all`
+The `all` methods return **all** of the DOM elements in an array that match the regex. If no elements match, it returns
+an empty array.
+
+#### `RegexQuery.all(regex, [,attributeName])`
+**Description** Queries the entire page. Returns an Array of matching elements.
+
+Examples:
+```javascript
+// Query all custom elements
+let customElements = RegexQuery.all(/^[a-z]+-[a-z]+/);
+
+// Query all elements that have a data-id attribute that contains only numbers
+let numericalIds = RegexQuery.all(/\d+/, 'data-id');
+```
 
 ---
 
-#### `.all(regex [,attributeName])`
-**Description:** Returns an `Array` of all the matched elements
+#### `RegexQuery.all.inside(query, regex, [,attributeName])`
+**Description** Queries for elements nested inside of the query argument. Returns an Array of matching elements.
 
-#### `.one(regex [,attributeName])`
-**Description:** Returns only the first matched element
+Examples: 
+```javascript
+// Query for all custom elements in a particual element
+let element = document.getElementById('#element');
+let customElement = RegexQuery.all.inside(element, /^[a-z]+-[a-z]+/);
 
-**`regex`**  
-_`type`_: Regular Expression  
-A pattern to match against. By default, the Regular Expression is applied to the entire opening tag of HTML elements. If an `attributeName` is provided as a second argument, the regular expression will be applied to only the value of the attribute, if it exists.
+// Query for all custom elements nested inside a div with a specific classname
+let customElements = RegexQuery.all.inside('div.special', /^[a-z]+-[a-z]+/);
 
-**`attributeName`**  
-_`type`_: String  
-An attribute name to which the regex would be scoped.
+// Query by using a nodeList
+let elements = RegexQuery.all.inside(document.querySelectorAll('div'), /\d+/, 'data-id');
+
+// Query by using an Array of nodes
+let elementsArray = [].slice.call(document.querySelectorAll('div'));
+let elements = RegexQuery.all.inside(elementsArray, /\d+/, 'data-id');
+```
 
 ---
 
-## Examples
+#### `RegexQuery.all.against(query, regex, [,attributeName])`
+**Description** Unlike the `all.inside()` method, this method applies the regex against the elements that are passed in,
+instead of searching children elements.
+
+Examples: 
+```javascript
+// See if a current element is a custom element tag (will return back empty array if not)
+let element = document.getElementById('.element');
+let customElement = RegexQuery.all.against(element, /^[a-z]+-[a-z]+/);
+
+// Find any div's with a class of special that have some sort of data- attribute
+let customElements = RegexQuery.all.against('div.special', /data-/);
+
+// Find the find any divs with a data-id attribute that contains only numbers
+let elements = RegexQuery.all.against(document.querySelectorAll('div'), /\d+/, 'data-id');
+
+// Query against an Array of nodes
+let elementsArray = [].slice.call(document.querySelectorAll('div'));
+let elements = RegexQuery.all.against(elementsArray, /\d+/, 'data-id');
+```
+
+---
+
+### `.one`
+The `one` methods return **only the first** DOM element that matches the regex. If no elements matches, it returns `null`.
+
+#### `RegexQuery.one(regex, [,attributeName])`
+**Description** Queries the entire page. Returns the first element that matches the regex. See the examples above for
+more clarification on how this method works.
+
+---
+
+#### `RegexQuery.one.inside(query, regex, [,attributeName])`
+**Description** Queries for the first element nested inside of a query argument. See the examples above for more
+clarification on how this method works.
+
+---
+
+#### `RegexQuery.one.against(query, regex, [,attributeName])`
+**Description** Unlike the `one.inside()` method, this method applies the regex against the elements that are passed in,
+instead of searching children elements. Returns the first element that matches. See the examples above for more
+clarification on how this method works.
+
+---
+
+## Other Examples
 
 To get all elements with any `data-*` attribute:
 
 ```javascript
-var elements = RegexQuery.all(/data-[a-z]/);
+let elements = RegexQuery.all(/data-[a-z]/);
 ```
 
 To get all elements that have a data-id attribute that conforms to a pattern, (for example 3 numbers followed 3 letters):
 ```javascript
-var elements = RegexQuery.all(/^\d{3}[a-z]{3}$/i, 'data-id');
+let elements = RegexQuery.all(/^\d{3}[a-z]{3}$/i, 'data-id');
 ```
 
 ## Keep in mind:
-* When you are querying without an `attributeName`, your regex is being applied to the entire **inside** contents of the opening tag of HTML elements. For example, if you wanted to get all elements that have a `tagName` that starts with `x`, you would do the following:
+* When you are querying without an `attributeName`, your regex is being applied to the entire **inside** contents of the
+opening tag of HTML elements. For example, if you wanted to get all elements that have a `tagName` that starts with `x`,
+you would do the following:
 
 ```javascript
 // This is correct:
-var xEls = RegexQuery.all(/^x/);
+let xEls = RegexQuery.all(/^x/);
 
 // This is incorrect:
-var xEls = RegexQuery.all(/^<x/); // note the `<`
+let xEls = RegexQuery.all(/^<x/); // note the `<`
 ```
 
-* Performance will always be slower when there is no `attributeName` passed in. This is just from preliminary testing, but on a page with ~2000 nodes, it takes ~18ms to complete the query when using `.all()`. When using an `attributeName`, it only adds on ~.5ms to a regular `querySelectorAll` call, with a `filter` attached to it to get the same result you would from this library.
-
-* Don't forget that in many cases, you can get the element using more advanced queries to `querySelector`, and `querySelectorAll`. For example, you can obtain elements with a data-id attribute that contain a 3:  
+* Don't forget that in many cases, you can get the element using more advanced queries to `querySelector`, and
+`querySelectorAll`. For example, you can obtain elements with a data-id attribute that contain a 3:  
 
 ```javascript
-var elements = document.querySelectorAll('[data-id*="3"]');
+let elements = document.querySelectorAll('[data-id*="3"]');
 ```
 
 ## Contributing
