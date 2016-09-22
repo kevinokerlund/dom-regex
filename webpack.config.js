@@ -1,12 +1,12 @@
 var webpack = require('webpack');
 
 module.exports = {
-	entry: './src/regex-query.js',
+	entry: './src/dom-regex.js',
 	devtool: 'source-map',
 	output: {
 		path: './lib',
-		filename: 'regex-query.js',
-		library: 'RegexQuery',
+		filename: 'dom-regex.js',
+		library: 'DomRegex',
 		libraryTarget: 'umd',
 		umdNamedDefine: true
 	},

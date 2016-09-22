@@ -1,20 +1,20 @@
-# reqex-query
+# dom-regex
 JavaScript library for querying DOM elements with Regular Expressions
 
 This library is UMD wrapped so it can be used with or without a module loader such as requireJS.
 
 ##Install
 ```javascript
-npm install --save regex-query
+npm install --save dom-regex
 ```
 
 ## Usage
 ```javascript
-import RegexQuery from 'Regex-Query';
+import DomRegex from 'dom-regex';
 
 // Query for all custom components
 // custom components are required to have hyphen in them
-let matches = RegexQuery.all(/^[a-z]+-[a-z]+/);
+let matches = DomRegex.all(/^[a-z]+-[a-z]+/);
 ```
 
 ## API
@@ -47,43 +47,43 @@ let matches = RegexQuery.all(/^[a-z]+-[a-z]+/);
 The `all` methods return **all** of the DOM elements in an array that match the regex. If no elements match, it returns
 an empty array.
 
-#### `RegexQuery.all(regex, [,attributeName])`
+#### `DomRegex.all(regex, [,attributeName])`
 **Description** Queries the entire page. Returns an Array of matching elements.
 
 Examples:
 ```javascript
 // Query all custom elements
-let customElements = RegexQuery.all(/^[a-z]+-[a-z]+/);
+let customElements = DomRegex.all(/^[a-z]+-[a-z]+/);
 
 // Query all elements that have a data-id attribute that contains only numbers
-let numericalIds = RegexQuery.all(/\d+/, 'data-id');
+let numericalIds = DomRegex.all(/\d+/, 'data-id');
 ```
 
 ---
 
-#### `RegexQuery.all.inside(query, regex, [,attributeName])`
+#### `DomRegex.all.inside(query, regex, [,attributeName])`
 **Description** Queries for elements nested inside of the query argument. Returns an Array of matching elements.
 
 Examples: 
 ```javascript
 // Query for all custom elements in a particual element
 let element = document.getElementById('#element');
-let customElement = RegexQuery.all.inside(element, /^[a-z]+-[a-z]+/);
+let customElement = DomRegex.all.inside(element, /^[a-z]+-[a-z]+/);
 
 // Query for all custom elements nested inside a div with a specific classname
-let customElements = RegexQuery.all.inside('div.special', /^[a-z]+-[a-z]+/);
+let customElements = DomRegex.all.inside('div.special', /^[a-z]+-[a-z]+/);
 
 // Query by using a nodeList
-let elements = RegexQuery.all.inside(document.querySelectorAll('div'), /\d+/, 'data-id');
+let elements = DomRegex.all.inside(document.querySelectorAll('div'), /\d+/, 'data-id');
 
 // Query by using an Array of nodes
 let elementsArray = [].slice.call(document.querySelectorAll('div'));
-let elements = RegexQuery.all.inside(elementsArray, /\d+/, 'data-id');
+let elements = DomRegex.all.inside(elementsArray, /\d+/, 'data-id');
 ```
 
 ---
 
-#### `RegexQuery.all.against(query, regex, [,attributeName])`
+#### `DomRegex.all.against(query, regex, [,attributeName])`
 **Description** Unlike the `all.inside()` method, this method applies the regex against the elements that are passed in,
 instead of searching children elements.
 
@@ -91,17 +91,17 @@ Examples:
 ```javascript
 // See if a current element is a custom element tag (will return back empty array if not)
 let element = document.getElementById('.element');
-let customElement = RegexQuery.all.against(element, /^[a-z]+-[a-z]+/);
+let customElement = DomRegex.all.against(element, /^[a-z]+-[a-z]+/);
 
 // Find any div's with a class of special that have some sort of data- attribute
-let customElements = RegexQuery.all.against('div.special', /data-/);
+let customElements = DomRegex.all.against('div.special', /data-/);
 
 // Find the find any divs with a data-id attribute that contains only numbers
-let elements = RegexQuery.all.against(document.querySelectorAll('div'), /\d+/, 'data-id');
+let elements = DomRegex.all.against(document.querySelectorAll('div'), /\d+/, 'data-id');
 
 // Query against an Array of nodes
 let elementsArray = [].slice.call(document.querySelectorAll('div'));
-let elements = RegexQuery.all.against(elementsArray, /\d+/, 'data-id');
+let elements = DomRegex.all.against(elementsArray, /\d+/, 'data-id');
 ```
 
 ---
@@ -109,19 +109,19 @@ let elements = RegexQuery.all.against(elementsArray, /\d+/, 'data-id');
 ### `.one`
 The `one` methods return **only the first** DOM element that matches the regex. If no elements matches, it returns `null`.
 
-#### `RegexQuery.one(regex, [,attributeName])`
+#### `DomRegex.one(regex, [,attributeName])`
 **Description** Queries the entire page. Returns the first element that matches the regex. See the examples above for
 more clarification on how this method works.
 
 ---
 
-#### `RegexQuery.one.inside(query, regex, [,attributeName])`
+#### `DomRegex.one.inside(query, regex, [,attributeName])`
 **Description** Queries for the first element nested inside of a query argument. See the examples above for more
 clarification on how this method works.
 
 ---
 
-#### `RegexQuery.one.against(query, regex, [,attributeName])`
+#### `DomRegex.one.against(query, regex, [,attributeName])`
 **Description** Unlike the `one.inside()` method, this method applies the regex against the elements that are passed in,
 instead of searching children elements. Returns the first element that matches. See the examples above for more
 clarification on how this method works.
@@ -133,12 +133,12 @@ clarification on how this method works.
 To get all elements with any `data-*` attribute:
 
 ```javascript
-let elements = RegexQuery.all(/data-[a-z]/);
+let elements = DomRegex.all(/data-[a-z]/);
 ```
 
 To get all elements that have a data-id attribute that conforms to a pattern, (for example 3 numbers followed 3 letters):
 ```javascript
-let elements = RegexQuery.all(/^\d{3}[a-z]{3}$/i, 'data-id');
+let elements = DomRegex.all(/^\d{3}[a-z]{3}$/i, 'data-id');
 ```
 
 ## Keep in mind:
@@ -148,10 +148,10 @@ you would do the following:
 
 ```javascript
 // This is correct:
-let xEls = RegexQuery.all(/^x/);
+let xEls = DomRegex.all(/^x/);
 
 // This is incorrect:
-let xEls = RegexQuery.all(/^<x/); // note the `<`
+let xEls = DomRegex.all(/^<x/); // note the `<`
 ```
 
 * Don't forget that in many cases, you can get the element using more advanced queries to `querySelector`, and

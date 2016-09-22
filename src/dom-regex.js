@@ -100,15 +100,15 @@ function against(findAll, selectorOrNodeListOrArrayOrElement, regex, attrName) {
 		[findOrFilter](el => test(el, regex, attrName));
 }
 
-const QueryByRegex = {
+const DomRegex = {
 	all: (...args) => oneOrAll(true, ...args),
 	one: (...args) => oneOrAll(false, ...args)
 };
 
-QueryByRegex.all.inside = (...args) => inside(true, ...args);
-QueryByRegex.all.against = (...args) => against(true, ...args);
+DomRegex.all.inside = (...args) => inside(true, ...args);
+DomRegex.all.against = (...args) => against(true, ...args);
 
-QueryByRegex.one.inside = (...args) => inside(false, ...args) || null;
-QueryByRegex.one.against = (...args) => against(false, ...args) || null;
+DomRegex.one.inside = (...args) => inside(false, ...args) || null;
+DomRegex.one.against = (...args) => against(false, ...args) || null;
 
-export default QueryByRegex;
+export default DomRegex;

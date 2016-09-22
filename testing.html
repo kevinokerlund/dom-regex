@@ -41,27 +41,27 @@
 	</div>
 </div>
 
-<script src="lib/regex-query.js"></script>
+<script src="lib/dom-regex.js"></script>
 <script>
 
-	var query1 = RegexQuery.all(/data-[a-z]+="\d/);
+	var query1 = DomRegex.all(/data-[a-z]+="\d/);
 	console.log(query1);
 
-	var query2 = RegexQuery.all(/nt/, 'id');
+	var query2 = DomRegex.all(/nt/, 'id');
 	console.log(query2);
 
-	var query3 = RegexQuery.all(/awe/, 'id');
+	var query3 = DomRegex.all(/awe/, 'id');
 	console.log(query3);
 
-	var query4 = RegexQuery.all.inside('#parent-with-children', /sele/);
+	var query4 = DomRegex.all.inside('#parent-with-children', /sele/);
 	console.log(query4);
 
-	var query5 = RegexQuery.all.inside('select',
+	var query5 = DomRegex.all.inside('select',
 		/optio/
 	);
 	console.log(query5);
 
-	var query6 = RegexQuery.all.inside(document.querySelector('select'),
+	var query6 = DomRegex.all.inside(document.querySelector('select'),
 		/optio/
 	);
 	console.log(query6);
@@ -70,35 +70,35 @@
 	console.log('\n\nNOW ONLY ONE\n\n');
 
 
-	var query7 = RegexQuery.one(/data-[a-z]+="\d/);
+	var query7 = DomRegex.one(/data-[a-z]+="\d/);
 	console.log(query7);
 
-	var query8 = RegexQuery.one(/nt/, 'id');
+	var query8 = DomRegex.one(/nt/, 'id');
 	console.log(query8);
 
-	var query9 = RegexQuery.one(/awe/, 'id');
+	var query9 = DomRegex.one(/awe/, 'id');
 	console.log(query9);
 
-	var query10 = RegexQuery.one.inside('#parent-with-children', /sele/);
+	var query10 = DomRegex.one.inside('#parent-with-children', /sele/);
 	console.log(query10);
 
-	var query11 = RegexQuery.one.inside('select',
+	var query11 = DomRegex.one.inside('select',
 		/optio/
 	);
 	console.log(query11);
 
-	var query12 = RegexQuery.one.inside(document.querySelector('select'),
+	var query12 = DomRegex.one.inside(document.querySelector('select'),
 		/optio/
 	);
 	console.log(query12);
 
-	var query20 = RegexQuery.all.against([].slice.call(document.querySelectorAll('select')), /normal/, 'id');
+	var query20 = DomRegex.all.against([].slice.call(document.querySelectorAll('select')), /normal/, 'id');
 	console.log(query20);
 
-	var query21 = RegexQuery.one.against([].slice.call(document.querySelectorAll('select')), /-normal/);
+	var query21 = DomRegex.one.against([].slice.call(document.querySelectorAll('select')), /-normal/);
 	console.log(query21);
 
-	var query22 = RegexQuery.all.against(document.querySelector('#awesomeID'), /div/, 'data-text');
+	var query22 = DomRegex.all.against(document.querySelector('#awesomeID'), /div/, 'data-text');
 	console.log(query22);
 
 </script>
