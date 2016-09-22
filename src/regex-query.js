@@ -1,5 +1,5 @@
-import 'polyfills/array-find.js';
-import 'polyfills/array-from.js';
+import './polyfills/array-find.js';
+import './polyfills/array-from.js';
 
 function isDOM(obj) {
 	if ("HTMLElement" in window) {
