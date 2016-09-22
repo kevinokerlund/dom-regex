@@ -1,41 +1,34 @@
 var webpack = require('webpack');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var path = require('path');
-var env = require('yargs').argv.mode;
-var libraryName = 'RegexQuery';
-
-var plugins = [], outputFile;
-
-if (env === 'build') {
-	plugins.push(new UglifyJsPlugin({minimize: true}));
-	outputFile = 'regex-query.min.js';
-} else {
-	outputFile = 'regex-query.js';
-}
-
 
 module.exports = {
-	entry: __dirname + "/src/regex-query.js",
+	entry: './src/regex-query.js',
 	devtool: 'source-map',
 	output: {
-		path: __dirname + '/lib',
-		filename: outputFile,
-		library: libraryName,
+		path: './lib',
+		filename: 'regex-query.js',
+		library: 'RegexQuery',
 		libraryTarget: 'umd',
 		umdNamedDefine: true
 	},
 	module: {
-		loaders: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: "babel-loader"
+		loaders: [{
+			loader: 'babel',
+			test: /\.js$/,
+			exclude: /node_modules/,
+			query: {
+				presets: ['es2015'],
+				plugins: ['babel-plugin-add-module-exports']
 			}
-		]
+		}]
 	},
-	resolve: {
-		root: path.resolve('./src'),
-		extensions: ['', '.js']
-	},
-	plugins: plugins
+	plugins: [
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false,
+			},
+			output: {
+				comments: false,
+			},
+		}),
+	]
 };
