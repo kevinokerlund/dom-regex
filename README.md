@@ -1,165 +1,150 @@
 # dom-regex
-JavaScript library for querying DOM elements with Regular Expressions
+A JavaScript library for querying DOM elements with Regular Expressions.
 
 This library is UMD wrapped so it can be used with or without a module loader such as requireJS.
 
-##Install
-```javascript
-npm install --save dom-regex
+## Install
+
+```shell
+npm install --save event-bundle
 ```
 
-## Usage
-```javascript
-import DomRegex from 'dom-regex';
+_**Note:**_ If this library is exposed directly to the window, it operates under the global variable `DomRegex`. Keep
+in mind you may be in an environment (ex: webpack) that requires you explicitly expose it to the window if you intend
+to use if from a window perspective.
 
-// Query for all custom components
-// custom components are required to have hyphen in them
-let matches = DomRegex.all(/^[a-z]+-[a-z]+/);
+
+
+## Example Usage
+```javascript
+let DomRegex = require('dom-regex');
+
+// find all elements with any data- attribute
+let elements = DomRegex.all(/data-[a-z]/);
 ```
 
-## API
-
-#### Argument Definitions:
-
- **`regex`**  
- _`type`_: Regular Expression  
- A pattern to match against. By default, the Regular Expression is applied to the entire opening tag of HTML elements.
- If an `attributeName` is provided as an argument, the regular expression will be applied to only the value of the
- attribute, if it exists.
- 
- **`attributeName`**  
- _`type`_: String  
- An attribute name to which the regex would be scoped instead.
- 
- **`query`**  
- _`type`_: *  
- Can be one of four things:
- * **DOM Element**
-   - An element from the page. For example, `let domElement = document.getElementById('foo');`
- * **Query Selector**
-   - A regular query selector that would be passed to `querySelector`. For example: `div.foo`
- * **NodeList**
-   - An entire selection of elements. `document.querySelectorAll('option');`.
- * **Array of DOM Elements**
-   - Many people convert NodeList's to arrays immediately after obtaining them so Array methods (`.forEach`) can be used.
-   
-### `.all`
-The `all` methods return **all** of the DOM elements in an array that match the regex. If no elements match, it returns
-an empty array.
-
-#### `DomRegex.all(regex, [,attributeName])`
-**Description** Queries the entire page. Returns an Array of matching elements.
-
-Examples:
-```javascript
-// Query all custom elements
-let customElements = DomRegex.all(/^[a-z]+-[a-z]+/);
-
-// Query all elements that have a data-id attribute that contains only numbers
-let numericalIds = DomRegex.all(/\d+/, 'data-id');
-```
 
 ---
 
-#### `DomRegex.all.inside(query, regex, [,attributeName])`
-**Description** Queries for elements nested inside of the query argument. Returns an Array of matching elements.
 
-Examples: 
-```javascript
-// Query for all custom elements in a particual element
-let element = document.getElementById('#element');
-let customElement = DomRegex.all.inside(element, /^[a-z]+-[a-z]+/);
+The following examples and methods behave like `querySelectorAll` and `querySelector`. The methods that use `all`
+return all matching instances. The methods that use `one` return only the first instance found.
 
-// Query for all custom elements nested inside a div with a specific classname
-let customElements = DomRegex.all.inside('div.special', /^[a-z]+-[a-z]+/);
 
-// Query by using a nodeList
-let elements = DomRegex.all.inside(document.querySelectorAll('div'), /\d+/, 'data-id');
 
-// Query by using an Array of nodes
-let elementsArray = [].slice.call(document.querySelectorAll('div'));
-let elements = DomRegex.all.inside(elementsArray, /\d+/, 'data-id');
-```
+## Querying through all the elements on the window
 
----
+**Methods:**  
+`DomRegex.all(regex [, attributeName])`  
+`DomRegex.one(regex [, attributeName])`
 
-#### `DomRegex.all.against(query, regex, [,attributeName])`
-**Description** Unlike the `all.inside()` method, this method applies the regex against the elements that are passed in,
-instead of searching children elements.
+When not using an attribute name, the regex is applied to the entire inside contents of the element's opening tag. If
+the tag is `<div class="bar" data-id="141pop">` then the regex would be applied to `div class="bar" data-id="141pop"`
 
-Examples: 
-```javascript
-// See if a current element is a custom element tag (will return back empty array if not)
-let element = document.getElementById('.element');
-let customElement = DomRegex.all.against(element, /^[a-z]+-[a-z]+/);
-
-// Find any div's with a class of special that have some sort of data- attribute
-let customElements = DomRegex.all.against('div.special', /data-/);
-
-// Find the find any divs with a data-id attribute that contains only numbers
-let elements = DomRegex.all.against(document.querySelectorAll('div'), /\d+/, 'data-id');
-
-// Query against an Array of nodes
-let elementsArray = [].slice.call(document.querySelectorAll('div'));
-let elements = DomRegex.all.against(elementsArray, /\d+/, 'data-id');
-```
-
----
-
-### `.one`
-The `one` methods return **only the first** DOM element that matches the regex. If no elements matches, it returns `null`.
-
-#### `DomRegex.one(regex, [,attributeName])`
-**Description** Queries the entire page. Returns the first element that matches the regex. See the examples above for
-more clarification on how this method works.
-
----
-
-#### `DomRegex.one.inside(query, regex, [,attributeName])`
-**Description** Queries for the first element nested inside of a query argument. See the examples above for more
-clarification on how this method works.
-
----
-
-#### `DomRegex.one.against(query, regex, [,attributeName])`
-**Description** Unlike the `one.inside()` method, this method applies the regex against the elements that are passed in,
-instead of searching children elements. Returns the first element that matches. See the examples above for more
-clarification on how this method works.
-
----
-
-## Other Examples
-
-To get all elements with any `data-*` attribute:
-
+#### Finding all matches on the window:
 ```javascript
 let elements = DomRegex.all(/data-[a-z]/);
 ```
 
-To get all elements that have a data-id attribute that conforms to a pattern, (for example 3 numbers followed 3 letters):
+#### Finding the first match on the window:
+```javascript
+let element = DomRegex.one(/data-[a-z]/);
+```
+
+### Find all elements that have an attribute value that matches a Regular Expression
+When using an attribute name, the regex is applied to the value of the attribute. If the element's opening tag was
+`<div class="bar" data-id="141pop">` and the attribute name supplied was `data-id`, then the regex would be tested
+against `141pop`.
+
+#### Finding all matches against an attribute name:
+```javascript
+// find all elements that have a data-id attribute that starts with 3 digits
+let elements = DomRegex.all(/^\d{3}/, 'data-id');
+```
+
+#### Finding one match against an attribute name:
+```javascript
+let element = DomRegex.one(/^\d{3}/, 'data-id');
+```
+
+
+
+## Querying children of elements
+Querying "inside" of elements is much like using `querySelectorAll` on an `HTMLElement`
+(`element.querySelectorAll('...')`). This method takes it a step further by offering the ability to query inside lists
+of elements, or by using selectors.
+
+**Methods:**  
+`DomRegex.all.inside(query, regex [, attributeName])`  
+`DomRegex.one.inside(query, regex [, attributeName])`
+
+#### Querying inside of a specific element:
+```javascript
+// find all custom elements inside of #element
+let element = document.getElementById('#element');
+let customElement = DomRegex.all.inside(element, /^[a-z]+-[a-z]+/);
+```
+
+#### Querying inside elements using a selector:
+```javascript
+// find all custom elements inside of any div with a class of "bar"
+let customElement = DomRegex.all.inside('div.bar', /^[a-z]+-[a-z]+/);
+```
+
+#### Querying inside each element in a NodeList
+```javascript
+let divs = document.querySelectorAll('div');
+let elements = DomRegex.all.inside(divs, /\d+/, 'data-id');
+```
+
+#### Querying inside each element in an Array
+```javascript
+let elements = DomRegex.all.inside(arrayOfElements, /\d+/, 'data-id');
+```
+
+
+
+## Querying against elements
+When querying against elements, you apply the regex directly to the element. This allows you to filter elements that
+you have already obtained.
+
+**Methods:**  
+`DomRegex.all.against(query, regex, [, attributeName])`  
+`DomRegex.one.against(query, regex, [, attributeName])`
+
+#### Applying regex to a specific element
+```javascript
+let element = document.getElementById('#element');
+let customElement = DomRegex.all.against(element, /^[a-z]+-[a-z]+/);
+// if this passes, it would return the element in an array because we are using `all`
+```
+
+#### Applying regex to elements that match a selector
+```javascript
+// this will test all divs with a class of "bar"
+let customElement = DomRegex.all.against('div.bar', /\d{3}/, 'data-id');
+```
+
+#### Applying regex to elements inside of a NodeList
+```javascript
+let divs = document.querySelectorAll('div');
+let elements = DomRegex.all.against(divs, /\d+/, 'data-id');
+```
+
+#### Applying regex to elements inside of an array
+```javascript
+let elements = DomRegex.all.against(arrayOfElements, /\d+/, 'data-id');
+```
+
+
+
+## Other Examples:
+Get all elements with a `data-` attribute
+```javascript
+let elements = DomRegex.all(/data-[a-z]/);
+```
+
+Get all elements that have a data-id attribute that conforms to a pattern, (for example 3 numbers followed 3 letters):
 ```javascript
 let elements = DomRegex.all(/^\d{3}[a-z]{3}$/i, 'data-id');
 ```
-
-## Keep in mind:
-* When you are querying without an `attributeName`, your regex is being applied to the entire **inside** contents of the
-opening tag of HTML elements. For example, if you wanted to get all elements that have a `tagName` that starts with `x`,
-you would do the following:
-
-```javascript
-// This is correct:
-let xEls = DomRegex.all(/^x/);
-
-// This is incorrect:
-let xEls = DomRegex.all(/^<x/); // note the `<`
-```
-
-* Don't forget that in many cases, you can get the element using more advanced queries to `querySelector`, and
-`querySelectorAll`. For example, you can obtain elements with a data-id attribute that contain a 3:  
-
-```javascript
-let elements = document.querySelectorAll('[data-id*="3"]');
-```
-
-## Contributing
-Any pull-requests/suggestions/etc., are definitely welcome.
