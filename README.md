@@ -6,7 +6,7 @@ This library is UMD wrapped so it can be used with or without a module loader su
 ## Install
 
 ```shell
-npm install --save event-bundle
+npm install --save dom-regex
 ```
 
 _**Note:**_ If this library is exposed directly to the window, it operates under the global variable `DomRegex`. Keep
