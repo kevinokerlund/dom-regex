@@ -1,6 +1,6 @@
 {
   "name": "dom-regex",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "JavaScript library for querying DOM elements with Regular Expressions",
   "main": "lib/dom-regex.js",
   "scripts": {
