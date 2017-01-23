@@ -2,10 +2,13 @@ import './polyfills/array-find.js';
 import './polyfills/array-from.js';
 
 function isDOM(obj) {
-	if ("HTMLElement" in window) {
-		return (obj && obj instanceof HTMLElement);
+	if (obj && obj instanceof HTMLElement) {
+		return true;
 	}
-	return !!(obj && typeof obj === "object" && obj.nodeType === 1 && obj.nodeName);
+	if (obj && obj instanceof DocumentFragment) {
+		return true;
+	}
+	return !!(obj && typeof obj === 'object' && obj.nodeType === 1 && obj.nodeName);
 }
 
 function verifyRegex(possibleRegex) {

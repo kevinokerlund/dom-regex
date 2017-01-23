@@ -101,6 +101,11 @@
 	var query22 = DomRegex.all.against(document.querySelector('#awesomeID'), /div/, 'data-text');
 	console.log(query22);
 
+	let fragment = document.createDocumentFragment();
+	fragment.appendChild(document.createElement('p'));
+	var queryfragment = DomRegex.one.inside(fragment, /^p/);
+	console.log(queryfragment);
+
 </script>
 
 </body>
